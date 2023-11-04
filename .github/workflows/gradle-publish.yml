@@ -9,9 +9,8 @@ name: Gradle Package
 
 on:
   push:
-    # Sequence of patterns matched against refs/tags
-    tags:        
-      - *
+    branches:
+      - main
 
 jobs:
   build:

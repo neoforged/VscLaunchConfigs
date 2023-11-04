@@ -1,6 +1,5 @@
 package cz.nightenom.vsclaunch.attribute;
 
-import java.io.File;
 import java.nio.file.Path;
 
 public interface PathLike extends PathWritable
@@ -27,12 +26,7 @@ public interface PathLike extends PathWritable
         @Override
         public void write(final StringBuilder sink)
         {
-            String value = path.toString();
-            if (File.separatorChar == '\\')
-            {
-                value = value.replace('\\', '/');
-            }
-            sink.append(value);
+            sink.append(path.toString());
         }
     }
 

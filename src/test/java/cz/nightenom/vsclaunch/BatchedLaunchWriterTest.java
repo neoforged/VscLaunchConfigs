@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +47,7 @@ public class BatchedLaunchWriterTest
             .withArguments(Arrays.asList("--help", "--version"))
             .withAdditionalJvmArgs(Arrays.asList("-Xmx4G"))
             .withModulePathsOverride(locatorTestPaths)
-            .withClassPathsOverride(locatorTestPaths)
+            .withClassPathsOverride(Collections.emptyList())
             .withFileEncoding(Charset.forName("UTF-16"))
             .withCurrentWorkingDirectory(PathLike.ofWorkSpaceFolder(Paths.get("run")))
             .withEnvironmentVariables(testEnv)

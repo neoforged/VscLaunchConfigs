@@ -33,6 +33,7 @@ tasks.named('test', Test) {
 
 group = 'cz.nightenom'
 version = gradleutils.getTagOffsetVersion()
+archivesBaseName = 'vsc-launch-writer'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 java.withSourcesJar()
@@ -55,6 +56,7 @@ publishing {
     publications {
         gpr(MavenPublication) {
             from(components.java)
+            artifactId = project.archivesBaseName
         }
     }
 }

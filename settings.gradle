@@ -1,4 +1,11 @@
-plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.7.0'
+pluginManagement {
+    repositories {
+        maven { url = 'https://maven.neoforged.net/' }
+    }
+
+    plugins {
+        id 'net.neoforged.gradleutils' version '2.0.+'
+        id 'org.gradle.toolchains.foojay-resolver-convention' version '0.7.0'
+    }
 }
 rootProject.name = 'VscLaunchJavaWriter'

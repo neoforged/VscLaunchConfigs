@@ -4,6 +4,7 @@ plugins {
     id 'idea'
     id 'eclipse'
     id 'maven-publish'
+    id 'net.neoforged.gradleutils'
 }
 
 repositories {
@@ -31,8 +32,7 @@ tasks.named('test', Test) {
 }
 
 group = 'cz.nightenom'
-//archivesBaseName = project.name
-version = 1.0 
+version = gradleutils.getTagOffsetVersion()
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 java.withSourcesJar()

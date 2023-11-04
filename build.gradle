@@ -3,6 +3,7 @@ plugins {
     id 'java-library'
     id 'idea'
     id 'eclipse'
+    id 'maven-publish'
 }
 
 repositories {
@@ -38,4 +39,22 @@ java.withSourcesJar()
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Nightenom/VscLaunchJavaWriter")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
 }

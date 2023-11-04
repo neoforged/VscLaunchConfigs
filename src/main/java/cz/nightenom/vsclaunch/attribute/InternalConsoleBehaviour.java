@@ -1,4 +1,4 @@
-package cz.nightenom.vsclaunch.attributes;
+package cz.nightenom.vsclaunch.attribute;
 
 public enum InternalConsoleBehaviour
 {

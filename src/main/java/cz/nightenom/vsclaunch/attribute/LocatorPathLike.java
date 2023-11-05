@@ -31,7 +31,7 @@ public interface LocatorPathLike extends PathWritable
 
     public static LocatorPathLike ofWorkSpaceFolderExclude(final Path relativeExclusionPath)
     {
-        return new NioPathWithPrefix("!" + PathWritable.WORKSPACE_FOLDER, relativeExclusionPath);
+        return new NioPathWithPrefix("!" + PathWritable.WORKSPACE_FOLDER + File.separator, relativeExclusionPath);
     }
 
     public static LocatorPathLike ofNio(final Path path)
@@ -41,7 +41,7 @@ public interface LocatorPathLike extends PathWritable
 
     public static LocatorPathLike ofWorkSpaceFolder(final Path relativePath)
     {
-        return new NioPathWithPrefix(PathWritable.WORKSPACE_FOLDER, relativePath);
+        return new NioPathWithPrefix(PathWritable.WORKSPACE_FOLDER + File.separator, relativePath);
     }
 
     static class StringPath implements LocatorPathLike
@@ -54,7 +54,7 @@ public interface LocatorPathLike extends PathWritable
         }
 
         @Override
-        public void write(final StringBuilder sink)
+        public void write(final StringBuilder sink, final Path workspaceFolder)
         {
             sink.append(value);
         }
@@ -70,14 +70,9 @@ public interface LocatorPathLike extends PathWritable
         }
 
         @Override
-        public void write(final StringBuilder sink)
+        public void write(final StringBuilder sink, final Path workspaceFolder)
         {
-            String value = path.toString();
-            if (File.separatorChar == '\\')
-            {
-                value = value.replace('\\', '/');
-            }
-            sink.append(value);
+            sink.append(PathWritable.pathToRelativeString(path, workspaceFolder));
         }
     }
 
@@ -92,11 +87,10 @@ public interface LocatorPathLike extends PathWritable
         }
 
         @Override
-        public void write(final StringBuilder sink)
+        public void write(final StringBuilder sink, final Path workspaceFolder)
         {
             sink.append(prefix);
-            sink.append('/');
-            super.write(sink);
+            super.write(sink, workspaceFolder);
         }
     }
 }

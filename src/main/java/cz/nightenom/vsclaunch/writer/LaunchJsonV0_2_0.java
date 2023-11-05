@@ -14,7 +14,6 @@ import cz.nightenom.vsclaunch.LaunchConfiguration;
 import cz.nightenom.vsclaunch.attribute.ConsoleType;
 import cz.nightenom.vsclaunch.attribute.InternalConsoleBehaviour;
 import cz.nightenom.vsclaunch.attribute.LaunchGroupEntry;
-import cz.nightenom.vsclaunch.attribute.PathLike;
 import cz.nightenom.vsclaunch.attribute.PathWritable;
 import cz.nightenom.vsclaunch.attribute.RequestType;
 import cz.nightenom.vsclaunch.attribute.ShortCmdBehaviour;
@@ -144,7 +143,7 @@ public class LaunchJsonV0_2_0 implements IWriter
                 configs.add(cfgObject);
             }
 
-            serializeConfiguration(cfgObject, cfg);
+            serializeConfiguration(cfgObject, cfg, projectRoot);
         });
 
         Files.createDirectories(launchJson.getParent());
@@ -216,7 +215,7 @@ public class LaunchJsonV0_2_0 implements IWriter
         }
     }
 
-    private void serializeConfiguration(final JsonObject cfgObject, final JavaConfiguration<?> cfg)
+    private void serializeConfiguration(final JsonObject cfgObject, final JavaConfiguration<?> cfg, final Path workspaceFolder)
     {
         cfgObject.addProperty(CFG_TYPE_KEY, cfg.getType());
         cfgObject.addProperty(CFG_REQUEST_KEY, enumAttributes.get(cfg.getRequestType()));
@@ -229,7 +228,7 @@ public class LaunchJsonV0_2_0 implements IWriter
         serializeNullable(cfgObject, CFG_INTERNAL_CONSOLE_BEHAVIOUR_KEY, cfg.getInternalConsoleOptions());
 
         cfgObject.addProperty(CFG_JAVA_PROJECT_NAME_KEY, cfg.getProjectName());
-        serializeNullablePaths(cfgObject, CFG_JAVA_SOURCE_PATHS_KEY, cfg.getAdditionalSourcePaths());
+        serializeNullablePaths(cfgObject, CFG_JAVA_SOURCE_PATHS_KEY, cfg.getAdditionalSourcePaths(), workspaceFolder);
 
         if (cfg instanceof LaunchConfiguration)
         {
@@ -237,13 +236,13 @@ public class LaunchJsonV0_2_0 implements IWriter
 
             cfgObject.addProperty(CFG_LAUNCH_MAIN_CLASS_KEY, launchCfg.getMainClass());
             serializeNullable(cfgObject, CFG_LAUNCH_ARGUMENTS_KEY, launchCfg.getArguments());
-            serializeNullablePaths(cfgObject, CFG_LAUNCH_MODULE_PATHS_KEY, launchCfg.getModulePathsOverride());
-            serializeNullablePaths(cfgObject, CFG_LAUNCH_CLASS_PATHS_KEY, launchCfg.getClassPathsOverride());
+            serializeNullablePaths(cfgObject, CFG_LAUNCH_MODULE_PATHS_KEY, launchCfg.getModulePathsOverride(), workspaceFolder);
+            serializeNullablePaths(cfgObject, CFG_LAUNCH_CLASS_PATHS_KEY, launchCfg.getClassPathsOverride(), workspaceFolder);
             serializeNullable(cfgObject, CFG_LAUNCH_ENCODING_KEY, launchCfg.getFileEncoding());
             serializeNullable(cfgObject, CFG_LAUNCH_VM_ARGUMENTS_KEY, launchCfg.getAdditionalJvmArgs());
-            serializeNullable(cfgObject, CFG_LAUNCH_WORKING_DIRECTORY_KEY, launchCfg.getCurrentWorkingDirectory());
+            serializeNullable(cfgObject, CFG_LAUNCH_WORKING_DIRECTORY_KEY, launchCfg.getCurrentWorkingDirectory(), workspaceFolder);
             serializeNullable(cfgObject, CFG_LAUNCH_ENVIRONMENT_PROPS_KEY, launchCfg.getEnvironmentVariables());
-            serializeNullable(cfgObject, CFG_LAUNCH_ENVIRONMENT_FILE_KEY, launchCfg.getEnvironmentVariablesFile());
+            serializeNullable(cfgObject, CFG_LAUNCH_ENVIRONMENT_FILE_KEY, launchCfg.getEnvironmentVariablesFile(), workspaceFolder);
             serializeNullable(cfgObject, CFG_LAUNCH_STOP_ON_ENTRY_KEY, launchCfg.shouldStopAppEntry());
             serializeNullable(cfgObject, CFG_LAUNCH_CONSOLE_TYPE_KEY, launchCfg.getConsoleType());
             serializeNullable(cfgObject, CFG_LAUNCH_SHORTEN_CMD_TYPE_KEY, launchCfg.getShortenCommandLine());
@@ -321,17 +320,20 @@ public class LaunchJsonV0_2_0 implements IWriter
         }
     }
 
-    private void serializeNullable(final JsonObject object, final String key, final PathLike value)
+    private void serializeNullable(final JsonObject object, final String key, final PathWritable value, final Path workspaceFolder)
     {
         if (value != null)
         {
             final StringBuilder pathString = new StringBuilder();
-            value.write(pathString);
+            value.write(pathString, workspaceFolder);
             object.addProperty(key, pathString.toString());
         }
     }
 
-    private void serializeNullablePaths(final JsonObject object, final String key, final List<? extends PathWritable> value)
+    private void serializeNullablePaths(final JsonObject object,
+        final String key,
+        final List<? extends PathWritable> value,
+        final Path workspaceFolder)
     {
         if (value != null)
         {
@@ -342,7 +344,7 @@ public class LaunchJsonV0_2_0 implements IWriter
                 if (path != null)
                 {
                     final StringBuilder pathString = new StringBuilder();
-                    path.write(pathString);
+                    path.write(pathString, workspaceFolder);
                     array.add(pathString.toString());
                 }
             });

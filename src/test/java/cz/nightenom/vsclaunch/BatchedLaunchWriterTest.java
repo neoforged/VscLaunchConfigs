@@ -27,7 +27,7 @@ public class BatchedLaunchWriterTest
         System.out.println("Running in: " + targetDir.toAbsolutePath().normalize().toString());
 
         final List<LocatorPathLike> locatorTestPaths = Arrays.asList(LocatorPathLike.ofAuto(),
-            LocatorPathLike.ofNio(Paths.get(".", "test")),
+            LocatorPathLike.ofNio(Paths.get(".", "test").toAbsolutePath()),
             LocatorPathLike.ofNioExclude(Paths.get(".", "exclude")),
             LocatorPathLike.ofRuntime(),
             LocatorPathLike.ofTest(),
@@ -51,7 +51,7 @@ public class BatchedLaunchWriterTest
             .withFileEncoding(Charset.forName("UTF-16"))
             .withCurrentWorkingDirectory(PathLike.ofWorkSpaceFolder(Paths.get("run")))
             .withEnvironmentVariables(testEnv)
-            .withEnvironmentVariablesFile(PathLike.ofNio(Paths.get(".", "envFile")))
+            .withEnvironmentVariablesFile(PathLike.ofNio(Paths.get(".", "envFile").toAbsolutePath()))
             .withShouldStopAppEntry(true)
             .withConsoleType(ConsoleType.INTERNAL_CONSOLE)
             .withShortenCommandLine(ShortCmdBehaviour.ARGUMENT_FILE)
@@ -74,6 +74,6 @@ public class BatchedLaunchWriterTest
             .withTimeout(100)
             .withProcessPicker();
 
-        assertDoesNotThrow(() -> writer.writeToLatestJson(targetDir));
+        assertDoesNotThrow(() -> writer.writeToLatestJson(targetDir.toAbsolutePath()));
     }
 }

@@ -1,5 +1,6 @@
 package cz.nightenom.vsclaunch.attribute;
 
+import java.io.File;
 import java.nio.file.Path;
 
 public interface PathLike extends PathWritable
@@ -11,7 +12,7 @@ public interface PathLike extends PathWritable
 
     public static PathLike ofWorkSpaceFolder(final Path relativePath)
     {
-        return new NioPathWithPrefix(PathWritable.WORKSPACE_FOLDER, relativePath);
+        return new NioPathWithPrefix(PathWritable.WORKSPACE_FOLDER + File.separator, relativePath);
     }
 
     static class NioPath implements PathLike
@@ -24,9 +25,9 @@ public interface PathLike extends PathWritable
         }
 
         @Override
-        public void write(final StringBuilder sink)
+        public void write(final StringBuilder sink, final Path workspaceFolder)
         {
-            sink.append(path.toString());
+            sink.append(PathWritable.pathToRelativeString(path, workspaceFolder));
         }
     }
 
@@ -41,11 +42,10 @@ public interface PathLike extends PathWritable
         }
 
         @Override
-        public void write(final StringBuilder sink)
+        public void write(final StringBuilder sink, final Path workspaceFolder)
         {
             sink.append(prefix);
-            sink.append('/');
-            super.write(sink);
+            super.write(sink, workspaceFolder);
         }
     }
 }

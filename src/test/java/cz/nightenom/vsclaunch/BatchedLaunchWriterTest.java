@@ -4,8 +4,11 @@ import cz.nightenom.vsclaunch.attribute.ConsoleType;
 import cz.nightenom.vsclaunch.attribute.LocatorPathLike;
 import cz.nightenom.vsclaunch.attribute.PathLike;
 import cz.nightenom.vsclaunch.attribute.ShortCmdBehaviour;
+import cz.nightenom.vsclaunch.writer.LaunchJsonV0_2_0;
 import cz.nightenom.vsclaunch.writer.WritingMode;
 import org.junit.jupiter.api.Test;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class BatchedLaunchWriterTest
 {
@@ -31,8 +35,8 @@ public class BatchedLaunchWriterTest
             LocatorPathLike.ofNioExclude(Paths.get(".", "exclude")),
             LocatorPathLike.ofRuntime(),
             LocatorPathLike.ofTest(),
-            LocatorPathLike.ofWorkSpaceFolder(Paths.get("workspaceF")),
-            LocatorPathLike.ofWorkSpaceFolderExclude(Paths.get("workspaceFexclude")));
+            LocatorPathLike.ofWorkSpaceFolder(Paths.get("workspaceFolder")),
+            LocatorPathLike.ofWorkSpaceFolderExclude(Paths.get("workspaceFolderExclude")));
 
         final Map<String, String> testEnv = new HashMap<>();
         testEnv.put("whoami", "myself");
@@ -74,6 +78,53 @@ public class BatchedLaunchWriterTest
             .withTimeout(100)
             .withProcessPicker();
 
-        assertDoesNotThrow(() -> writer.writeToLatestJson(targetDir.toAbsolutePath()));
+        assertDoesNotThrow(() -> writer.write(LaunchJsonV0_2_0.INSTANCE, targetDir.toAbsolutePath()));
+
+        final String mismatch = assertDoesNotThrow(
+            () -> areFileContentsEqual(LaunchJsonV0_2_0.resolveLaunchFilePath(Paths.get(".", "src", "test", "resources", "v0_2_0")),
+                LaunchJsonV0_2_0.resolveLaunchFilePath(targetDir)));
+        assertNull(mismatch, mismatch);
+    }
+
+    /**
+     * @return null if same or description of mismatch
+     */
+    private static String areFileContentsEqual(final Path expected, final Path testResult) throws IOException
+    {
+        try (BufferedReader expectedReader = Files.newBufferedReader(expected);
+            BufferedReader testReader = Files.newBufferedReader(testResult))
+        {
+            final String expectedName = expected.toAbsolutePath().normalize().toString();
+            final String testName = testResult.toAbsolutePath().normalize().toString();
+
+            long lineNumber = 1;
+            String expectedLine = "", testLine = "";
+            while ((expectedLine = expectedReader.readLine()) != null)
+            {
+                testLine = testReader.readLine();
+                if (testLine == null)
+                {
+                    return "Generated file " + testName + " is shorter than expected test output: " + expectedName;
+                }
+                if (!expectedLine.equals(testLine))
+                {
+                    return "Generated file " + testName +
+                        " has mismatch on line " +
+                        lineNumber +
+                        " compared to expected test output: " +
+                        expectedName;
+                }
+                lineNumber++;
+            }
+            if (testReader.readLine() == null)
+            {
+                // there are same
+                return null;
+            }
+            else
+            {
+                return "Generated file " + testName + " is longer than expected test output: " + expectedName;
+            }
+        }
     }
 }

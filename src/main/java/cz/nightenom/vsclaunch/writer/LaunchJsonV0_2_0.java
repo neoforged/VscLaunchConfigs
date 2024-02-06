@@ -108,7 +108,7 @@ public class LaunchJsonV0_2_0 implements IWriter
 
     private void write0(final BatchedLaunchWriter data, final Path projectRoot) throws IOException
     {
-        final Path launchJson = projectRoot.resolve(".vscode").resolve("launch.json");
+        final Path launchJson = resolveLaunchFilePath(projectRoot);
         final JsonObject root;
         if (data.getKeepCurrentContent() == WritingMode.MODIFY_CURRENT && Files.exists(launchJson))
         {
@@ -152,6 +152,11 @@ public class LaunchJsonV0_2_0 implements IWriter
         {
             gson.toJson(root, gson.newJsonWriter(writer));
         }
+    }
+
+    public static Path resolveLaunchFilePath(final Path projectRoot)
+    {
+        return projectRoot.resolve(".vscode").resolve("launch.json");
     }
 
     private Map<String, JsonObject> getExistingConfigs(final JsonArray configs)

@@ -1,0 +1,71 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "launchTest",
+      "presentation": {
+        "group": "test",
+        "order": 0
+      },
+      "projectName": "coolProject",
+      "mainClass": "coolProject.Main",
+      "args": [
+        "--help",
+        "--version"
+      ],
+      "modulePaths": [
+        "$Auto",
+        "${workspaceFolder}\\..\\test",
+        "!.\\exclude",
+        "$Runtime",
+        "$Test",
+        "${workspaceFolder}\\workspaceFolder",
+        "!${workspaceFolder}\\workspaceFolderExclude"
+      ],
+      "classPaths": [],
+      "encoding": "UTF-16",
+      "vmArgs": [
+        "-Xmx4G"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {
+        "whoami": "myself",
+        "whoru": "yourself"
+      },
+      "envFile": "${workspaceFolder}\\..\\envFile",
+      "stopOnEntry": true,
+      "console": "internalConsole",
+      "shortenCommandLine": "argfile"
+    },
+    {
+      "type": "java",
+      "request": "attach",
+      "name": "attachTest",
+      "presentation": {
+        "group": "test",
+        "order": 1
+      },
+      "projectName": "coolProject",
+      "hostName": "localhost",
+      "port": 55555,
+      "timeout": 100,
+      "processId": 10
+    },
+    {
+      "type": "java",
+      "request": "attach",
+      "name": "attachTestProjectPicker",
+      "presentation": {
+        "group": "test",
+        "order": 2
+      },
+      "projectName": "coolProject",
+      "hostName": "localhost",
+      "port": 55555,
+      "timeout": 100,
+      "processId": "${command:PickJavaProcess}"
+    }
+  ]
+}

@@ -112,7 +112,11 @@ public class BatchedLaunchWriterTest
                         " has mismatch on line " +
                         lineNumber +
                         " compared to expected test output: " +
-                        expectedName;
+                        expectedName +
+                        "\n" +
+                        testLine +
+                        "\n" +
+                        expectedLine;
                 }
                 lineNumber++;
             }

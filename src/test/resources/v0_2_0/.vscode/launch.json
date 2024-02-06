@@ -17,24 +17,24 @@
       ],
       "modulePaths": [
         "$Auto",
-        "${workspaceFolder}\\..\\test",
-        "!.\\exclude",
+        "${workspaceFolder}/../test",
+        "!./exclude",
         "$Runtime",
         "$Test",
-        "${workspaceFolder}\\workspaceFolder",
-        "!${workspaceFolder}\\workspaceFolderExclude"
+        "${workspaceFolder}/workspaceFolder",
+        "!${workspaceFolder}/workspaceFolderExclude"
       ],
       "classPaths": [],
       "encoding": "UTF-16",
       "vmArgs": [
         "-Xmx4G"
       ],
-      "cwd": "${workspaceFolder}\\run",
+      "cwd": "${workspaceFolder}/run",
       "env": {
         "whoami": "myself",
         "whoru": "yourself"
       },
-      "envFile": "${workspaceFolder}\\..\\envFile",
+      "envFile": "${workspaceFolder}/../envFile",
       "stopOnEntry": true,
       "console": "internalConsole",
       "shortenCommandLine": "argfile"

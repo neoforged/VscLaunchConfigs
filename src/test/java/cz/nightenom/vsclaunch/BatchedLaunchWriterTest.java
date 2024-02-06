@@ -106,7 +106,7 @@ public class BatchedLaunchWriterTest
                 {
                     return "Generated file " + testName + " is shorter than expected test output: " + expectedName;
                 }
-                if (!expectedLine.equals(testLine))
+                if (!expectedLine.replace("\\\\", "/").equals(testLine.replace("\\\\", "/")))
                 {
                     return "Generated file " + testName +
                         " has mismatch on line " +

@@ -1,4 +1,4 @@
-package cz.nightenom.vsclaunch.writer;
+package net.neoforged.vsclc.writer;
 
 public enum WritingMode
 {

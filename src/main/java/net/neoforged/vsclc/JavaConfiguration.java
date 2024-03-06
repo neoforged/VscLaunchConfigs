@@ -1,9 +1,10 @@
-package cz.nightenom.vsclaunch;
+package net.neoforged.vsclc;
 
-import cz.nightenom.vsclaunch.attribute.InternalConsoleBehaviour;
-import cz.nightenom.vsclaunch.attribute.LaunchGroupEntry;
-import cz.nightenom.vsclaunch.attribute.PathLike;
-import cz.nightenom.vsclaunch.attribute.RequestType;
+import net.neoforged.vsclc.attribute.InternalConsoleBehaviour;
+import net.neoforged.vsclc.attribute.LaunchGroupEntry;
+import net.neoforged.vsclc.attribute.PathLike;
+import net.neoforged.vsclc.attribute.RequestType;
+
 import java.util.List;
 
 /**

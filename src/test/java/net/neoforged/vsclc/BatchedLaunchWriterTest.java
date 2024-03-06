@@ -1,11 +1,11 @@
-package cz.nightenom.vsclaunch;
+package net.neoforged.vsclc;
 
-import cz.nightenom.vsclaunch.attribute.ConsoleType;
-import cz.nightenom.vsclaunch.attribute.LocatorPathLike;
-import cz.nightenom.vsclaunch.attribute.PathLike;
-import cz.nightenom.vsclaunch.attribute.ShortCmdBehaviour;
-import cz.nightenom.vsclaunch.writer.LaunchJsonV0_2_0;
-import cz.nightenom.vsclaunch.writer.WritingMode;
+import net.neoforged.vsclc.attribute.ConsoleType;
+import net.neoforged.vsclc.attribute.LocatorPathLike;
+import net.neoforged.vsclc.attribute.PathLike;
+import net.neoforged.vsclc.attribute.ShortCmdBehaviour;
+import net.neoforged.vsclc.writer.LaunchJsonV0_2_0;
+import net.neoforged.vsclc.writer.WritingMode;
 import org.junit.jupiter.api.Test;
 import java.io.BufferedReader;
 import java.io.IOException;

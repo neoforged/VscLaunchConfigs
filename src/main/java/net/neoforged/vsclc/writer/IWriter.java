@@ -1,7 +1,8 @@
-package cz.nightenom.vsclaunch.writer;
+package net.neoforged.vsclc.writer;
 
-import cz.nightenom.vsclaunch.BatchedLaunchWriter;
-import cz.nightenom.vsclaunch.ConfigurationGroup;
+import net.neoforged.vsclc.BatchedLaunchWriter;
+import net.neoforged.vsclc.ConfigurationGroup;
+
 import java.io.IOException;
 import java.nio.file.Path;
 

@@ -1,10 +1,11 @@
-package cz.nightenom.vsclaunch;
+package net.neoforged.vsclc;
 
-import cz.nightenom.vsclaunch.attribute.ConsoleType;
-import cz.nightenom.vsclaunch.attribute.LocatorPathLike;
-import cz.nightenom.vsclaunch.attribute.PathLike;
-import cz.nightenom.vsclaunch.attribute.RequestType;
-import cz.nightenom.vsclaunch.attribute.ShortCmdBehaviour;
+import net.neoforged.vsclc.attribute.ConsoleType;
+import net.neoforged.vsclc.attribute.LocatorPathLike;
+import net.neoforged.vsclc.attribute.PathLike;
+import net.neoforged.vsclc.attribute.RequestType;
+import net.neoforged.vsclc.attribute.ShortCmdBehaviour;
+
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;

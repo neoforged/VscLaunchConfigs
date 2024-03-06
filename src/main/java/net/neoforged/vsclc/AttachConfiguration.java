@@ -1,6 +1,6 @@
-package cz.nightenom.vsclaunch;
+package net.neoforged.vsclc;
 
-import cz.nightenom.vsclaunch.attribute.RequestType;
+import net.neoforged.vsclc.attribute.RequestType;
 
 public class AttachConfiguration extends JavaConfiguration<AttachConfiguration>
 {

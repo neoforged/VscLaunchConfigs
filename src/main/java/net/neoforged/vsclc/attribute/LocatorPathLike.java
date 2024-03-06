@@ -1,4 +1,4 @@
-package cz.nightenom.vsclaunch.attribute;
+package net.neoforged.vsclc.attribute;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -31,7 +31,7 @@ public interface LocatorPathLike extends PathWritable
 
     public static LocatorPathLike ofWorkSpaceFolderExclude(final Path relativeExclusionPath)
     {
-        return new NioPathWithPrefix("!" + PathWritable.WORKSPACE_FOLDER + File.separator, relativeExclusionPath);
+        return new NioPathWithPrefix("!" + WORKSPACE_FOLDER + File.separator, relativeExclusionPath);
     }
 
     public static LocatorPathLike ofNio(final Path path)
@@ -41,7 +41,7 @@ public interface LocatorPathLike extends PathWritable
 
     public static LocatorPathLike ofWorkSpaceFolder(final Path relativePath)
     {
-        return new NioPathWithPrefix(PathWritable.WORKSPACE_FOLDER + File.separator, relativePath);
+        return new NioPathWithPrefix(WORKSPACE_FOLDER + File.separator, relativePath);
     }
 
     static class StringPath implements LocatorPathLike

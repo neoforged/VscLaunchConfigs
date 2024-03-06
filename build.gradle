@@ -1,3 +1,5 @@
+import net.neoforged.gradleutils.PomUtilsExtension.License
+
 plugins {
     id 'java'
     id 'java-library'
@@ -9,7 +11,19 @@ plugins {
 
 repositories {
     mavenCentral()
-    flatDir { dirs 'libs' }
+}
+
+gradleutils {
+    setupSigning()
+    setupCentralPublishing()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+    withSourcesJar()
+    withJavadocJar()
 }
 
 dependencies {
@@ -31,9 +45,8 @@ tasks.named('test', Test) {
     }
 }
 
-group = 'cz.nightenom'
-version = gradleutils.getTagOffsetVersion()
-archivesBaseName = 'vsc-launch-writer'
+group = 'net.neoforged'
+version = gradleutils.version
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 java.withSourcesJar()
@@ -43,20 +56,26 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Nightenom/VscLaunchJavaWriter")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+    publications {
+        register('mavenJava', MavenPublication) {
+            from components.java
+            gradleutils.sign(it)
+
+            pom {
+                name = project.name
+                description = 'A Java library for generating Vsc Launch Configurations (.launch files).'
+
+                pomUtils.neoForgedDeveloper(it)
+                pomUtils.license(it, License.LGPL_v2)
+                pomUtils.githubRepo(it, 'VscLaunchConfigs')
             }
         }
     }
-    publications {
-        gpr(MavenPublication) {
-            from(components.java)
-            artifactId = project.archivesBaseName
+    repositories {
+        maven gradleutils.publishingMaven
+        maven {
+            name 'test'
+            url file('repo')
         }
     }
 }

@@ -1,4 +1,4 @@
-package cz.nightenom.vsclaunch.writer;
+package net.neoforged.vsclc.writer;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

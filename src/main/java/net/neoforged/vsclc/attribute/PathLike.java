@@ -1,4 +1,4 @@
-package cz.nightenom.vsclaunch.attribute;
+package net.neoforged.vsclc.attribute;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -12,7 +12,7 @@ public interface PathLike extends PathWritable
 
     public static PathLike ofWorkSpaceFolder(final Path relativePath)
     {
-        return new NioPathWithPrefix(PathWritable.WORKSPACE_FOLDER + File.separator, relativePath);
+        return new NioPathWithPrefix(WORKSPACE_FOLDER + File.separator, relativePath);
     }
 
     static class NioPath implements PathLike

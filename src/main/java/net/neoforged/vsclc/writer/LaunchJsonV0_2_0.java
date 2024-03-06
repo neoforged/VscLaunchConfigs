@@ -1,4 +1,4 @@
-package cz.nightenom.vsclaunch.writer;
+package net.neoforged.vsclc.writer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -7,16 +7,17 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonStreamParser;
-import cz.nightenom.vsclaunch.AttachConfiguration;
-import cz.nightenom.vsclaunch.BatchedLaunchWriter;
-import cz.nightenom.vsclaunch.JavaConfiguration;
-import cz.nightenom.vsclaunch.LaunchConfiguration;
-import cz.nightenom.vsclaunch.attribute.ConsoleType;
-import cz.nightenom.vsclaunch.attribute.InternalConsoleBehaviour;
-import cz.nightenom.vsclaunch.attribute.LaunchGroupEntry;
-import cz.nightenom.vsclaunch.attribute.PathWritable;
-import cz.nightenom.vsclaunch.attribute.RequestType;
-import cz.nightenom.vsclaunch.attribute.ShortCmdBehaviour;
+import net.neoforged.vsclc.AttachConfiguration;
+import net.neoforged.vsclc.BatchedLaunchWriter;
+import net.neoforged.vsclc.JavaConfiguration;
+import net.neoforged.vsclc.LaunchConfiguration;
+import net.neoforged.vsclc.attribute.ConsoleType;
+import net.neoforged.vsclc.attribute.InternalConsoleBehaviour;
+import net.neoforged.vsclc.attribute.LaunchGroupEntry;
+import net.neoforged.vsclc.attribute.PathWritable;
+import net.neoforged.vsclc.attribute.RequestType;
+import net.neoforged.vsclc.attribute.ShortCmdBehaviour;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;

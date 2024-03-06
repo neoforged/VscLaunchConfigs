@@ -1,6 +1,6 @@
-package cz.nightenom.vsclaunch.attribute;
+package net.neoforged.vsclc.attribute;
 
-import cz.nightenom.vsclaunch.JavaConfiguration;
+import net.neoforged.vsclc.JavaConfiguration;
 
 public class LaunchGroupEntry<T extends JavaConfiguration<T>>
 {

@@ -1,4 +1,4 @@
-package cz.nightenom.vsclaunch.attribute;
+package net.neoforged.vsclc.attribute;
 
 import java.io.File;
 import java.nio.file.Path;

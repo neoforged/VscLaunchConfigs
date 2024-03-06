@@ -1,4 +1,4 @@
-package cz.nightenom.vsclaunch;
+package net.neoforged.vsclc;
 
 import java.util.ArrayList;
 import java.util.List;
